@@ -28,7 +28,9 @@ type LoggingConfiguration struct {
 
 var configuration *Config
 
-// Function that initializes the environment configuration
+///
+/// Function that initializes the environment configuration
+///
 func InitializeConfiguration() *Config {
 
 	if configuration == nil {
@@ -47,7 +49,9 @@ func InitializeConfiguration() *Config {
 	return configuration
 }
 
-// Returns the database connection string
+///
+/// Returns the database connection string
+///
 func GetConnectionString() string {
 
 	configuration := InitializeConfiguration()
