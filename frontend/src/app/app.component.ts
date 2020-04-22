@@ -6,5 +6,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'frontend';
+  title = 'ToDo List App';
+
+  links = [
+    {
+      name: "Home",
+      url: "/home"
+    },
+    {
+      name: "Create a new task",
+      url: "/new"
+    }
+  ]
+
 }

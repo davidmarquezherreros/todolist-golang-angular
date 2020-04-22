@@ -1,0 +1,60 @@
+<div class="container-fluid">
+
+  <div class="row">
+      <div class="col-sm-12">
+        <div class="float-right adjust-margins-10">
+          <button type="button" class="btn btn-info"  (click)="changeRenderClicked()">{{renderButtonDisplay}}</button>
+        </div>
+      </div>
+  </div>
+  <div *ngIf="cardRender; then thenBlock else elseBlock"></div>
+  <ng-template #thenBlock>
+    <div class="row">
+      <div class="col-sm-3" *ngFor="let task of tasks">
+        <mat-card class="task-card adjust-margins-10">
+          <mat-card-header>
+            <div mat-card-avatar class="task-header-image"></div>
+            <mat-card-title>{{task.NAME}}</mat-card-title>
+            <mat-card-subtitle>{{task.STATUS}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p>
+              TODO Add task description in the database
+            </p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button>Edit</button>
+            <button mat-button>Delete</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #elseBlock>
+    <div class="adjust-margins-10">
+      <table class="table table-format">
+        <thead class="thead-dark">
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Start date</th>
+            <th>End date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let task of tasks" class="table-tr-format">
+            <td>{{task.ID}}</td>
+            <td>{{task.NAME}}</td>
+            <td>{{task.STATUS}}</td>
+            <td>{{task.DATE_START}}</td>
+            <td>{{task.DATE_END}}</td>
+            <td>TODO Add actions</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-template>
+</div>
+
