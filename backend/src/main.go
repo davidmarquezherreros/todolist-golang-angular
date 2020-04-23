@@ -34,8 +34,6 @@ func deleteTaskById(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	InitializeConfiguration()
-
 	router := mux.NewRouter().StrictSlash(true)
 
 	router.HandleFunc("/", serveIndex)

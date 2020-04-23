@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
-	"log"
 
 	"gopkg.in/yaml.v2"
 )
@@ -37,13 +36,12 @@ func InitializeConfiguration() *Config {
 		yamlFile, err := ioutil.ReadFile("config.yaml")
 
 		if err != nil {
-			log.Printf("yamlFile.Get err   #%v ", err)
+			RegisterLog(fmt.Sprintf("yamlFile.Get err   #%v ", err), false)
 		}
-
 		err = yaml.Unmarshal(yamlFile, &configuration)
 
 		if err != nil {
-			log.Fatalf("Unmarshal: %v", err)
+			RegisterLog(fmt.Sprintf("Unmarshal: %v", err), false)
 		}
 	}
 	return configuration
@@ -55,7 +53,6 @@ func InitializeConfiguration() *Config {
 func GetConnectionString() string {
 
 	configuration := InitializeConfiguration()
-
 	return fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", configuration.Database.User, configuration.Database.Password, configuration.Database.Host, configuration.Database.Port, configuration.Database.Name)
 
 }

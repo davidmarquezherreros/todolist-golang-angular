@@ -8,11 +8,12 @@ import (
 )
 
 type Task struct {
-	ID         int
-	NAME       string
-	STATUS     string
-	DATE_START string
-	DATE_END   string
+	ID          int
+	NAME        string
+	DESCRIPTION string
+	STATUS      string
+	DATE_START  string
+	DATE_END    string
 }
 
 var db *sql.DB
@@ -24,6 +25,7 @@ var err error
 func Ping() bool {
 	err = db.Ping()
 	if err != nil {
+		RegisterLog(err.Error(), true)
 		return false
 	} else {
 		return true
@@ -31,7 +33,7 @@ func Ping() bool {
 }
 
 ///
-/// Executes a defined stored procedure
+/// Executes a defined stored procedure without parameters
 ///
 func ExecuteSP(spname string) *sql.Rows {
 
@@ -42,9 +44,32 @@ func ExecuteSP(spname string) *sql.Rows {
 	rows, err := db.Query(fmt.Sprintf("CALL `%s`()", spname))
 
 	if err != nil {
-		//TODO: Log error
+		RegisterLog(err.Error(), true)
 	}
 
 	defer db.Close()
 	return rows
+}
+
+///
+/// Executes a defined stored procedure with parameters
+/// Does not return records
+///
+func ExecuteSPWithParametersNoReturn(spname string, parameters []string) {
+
+	db, err = sql.Open("mysql", GetConnectionString())
+
+	var sqlStatement string = fmt.Sprintf("CALL `%s`(", spname)
+
+	for i := 0; i < len(parameters); i++ {
+		sqlStatement += fmt.Sprintf("'%s'", parameters[i])
+	}
+	sqlStatement += ")"
+	_, err := db.Exec(sqlStatement)
+
+	if err != nil {
+		RegisterLog(err.Error(), true)
+	}
+
+	defer db.Close()
 }
