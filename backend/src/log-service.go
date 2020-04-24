@@ -15,7 +15,7 @@ func RegisterLog(error string, failedDb bool) {
 	}
 
 	if configuration.Logging.Database && !failedDb {
-		parameters := []string{error}
+		parameters := []string{fmt.Sprintf("'%s'", error)}
 		ExecuteSPWithParametersNoReturn("SP_INSERT_LOG_BACKEND", parameters)
 	} else {
 		f, _ := os.OpenFile(configuration.Logging.Filename, os.O_CREATE|os.O_RDWR|os.O_APPEND, 0660)
