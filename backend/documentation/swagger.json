@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "title": "TODOLIST API"
   },
-  "host": "localhost:9000",
+  "host": "localhost:9090",
   "basePath": "/",
   "schemes": [
     "http"
