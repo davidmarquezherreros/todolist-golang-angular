@@ -2,10 +2,14 @@ package main
 
 import (
 	"reflect"
+	"strconv"
 )
 
-func retrieveAllTasks() []Task {
-	rows := ExecuteSP("SP_RETRIEVE_ALL_TASKS")
+func retrieveAllTasks(pageNumber int) []Task {
+	start := (pageNumber - 1) * 20
+	end := pageNumber * 20
+
+	rows := ExecuteSPWithParametersWithReturn("SP_RETRIEVE_ALL_TASKS", []string{strconv.Itoa(start), strconv.Itoa(end)})
 
 	var tasks []Task
 
@@ -22,7 +26,7 @@ func retrieveAllTasks() []Task {
 
 		err := rows.Scan(columns...)
 		if err != nil {
-			//TODO: LOG
+			RegisterLog(err.Error(), false)
 		}
 		tasks = append(tasks, task)
 	}
